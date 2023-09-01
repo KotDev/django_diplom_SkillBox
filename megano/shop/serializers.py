@@ -87,6 +87,7 @@ class SaleSerializer(serializers.ModelSerializer):
     price = serializers.SerializerMethodField()
     title = serializers.SerializerMethodField()
     salePrice = serializers.SerializerMethodField()
+    id = serializers.SerializerMethodField()
 
     class Meta:
         model = Sale
@@ -113,3 +114,6 @@ class SaleSerializer(serializers.ModelSerializer):
         for image in images_tmp:
             images.append({"src": f"/media/{image.src}", "alt": image.alt})
         return images
+
+    def get_id(self, obj):
+        return obj.product_id

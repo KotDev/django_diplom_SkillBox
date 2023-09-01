@@ -101,7 +101,7 @@ class Sale(models.Model):
     @property
     def salePrice(self) -> float:
         """Подсчёт скидки на продукт"""
-        return float(self.product.price) * (self.sale / 100)
+        return float(self.product.price) - float(self.product.price) * (self.sale / 100)
 
     class Meta:
         verbose_name = "Скидка товара"
