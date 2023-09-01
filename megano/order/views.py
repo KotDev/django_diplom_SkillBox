@@ -74,6 +74,12 @@ class OrderDetailView(APIView):
                 order.totalCost += 20
 
         for product in data['products']:
+            obj = Product.objects.get(id=product['id'])
+            obj.count = obj.count - product['count']
+            print(obj.count)
+            if obj.count == 0:
+                obj.available = False
+            obj.save()
             CountProductinOrder.objects.get_or_create(
                 order_id=order.pk,
                 product_id=product['id'],

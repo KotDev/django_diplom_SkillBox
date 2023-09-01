@@ -10,9 +10,10 @@ def filter_product(data_request) -> dict:
     data = {'title__icontains': data_request.get('filter[name]'),  # Фильтр по названию продукта
             'price__lte': data_request.get('filter[maxPrice]'),  # Фильтр по макс цене
             'price__gte': data_request.get('filter[minPrice]'),  # Фильтр по мин цене
-            'freeDelivery': eval(data_request.get('filter[freeDelivery]').title()),  # Фильтр по доставке
+            'freeDelivery': True if eval(data_request.get('filter[freeDelivery]').title()) else None,  # Фильтр по доставке
             'available': eval(data_request.get('filter[available]').title()),  # Фильтр по наличии продукта
             'category_id': data_request.get('category'),  # Фильтр по категории
+            'tags__in': data_request.get('tags[]')  # Получаем тэги
             }  # Получаем словарь по фильтру из request
     for key in data.copy():
         if data[key] is None:  # Проверяем значения ключа
