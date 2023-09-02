@@ -6,4 +6,4 @@ class BasketSerializer(ProductSerializer):
     count = serializers.SerializerMethodField()
 
     def get_count(self, obj):
-        return self.context['count'][obj.id]
+        return self.context["count"][obj.id]

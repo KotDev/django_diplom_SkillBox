@@ -7,14 +7,19 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('product', '0006_specifications_rename_created_review_date_and_more'),
+        ("product", "0006_specifications_rename_created_review_date_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='product',
-            name='specifications',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.PROTECT, to='product.specifications', verbose_name='Специфифкация'),
+            model_name="product",
+            name="specifications",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="product.specifications",
+                verbose_name="Специфифкация",
+            ),
             preserve_default=False,
         ),
     ]

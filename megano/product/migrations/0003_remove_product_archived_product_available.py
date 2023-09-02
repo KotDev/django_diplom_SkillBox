@@ -6,17 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('product', '0002_alter_review_author_alter_review_email'),
+        ("product", "0002_alter_review_author_alter_review_email"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='product',
-            name='archived',
+            model_name="product",
+            name="archived",
         ),
         migrations.AddField(
-            model_name='product',
-            name='available',
-            field=models.BooleanField(default=True, verbose_name='В наличии'),
+            model_name="product",
+            name="available",
+            field=models.BooleanField(default=True, verbose_name="В наличии"),
         ),
     ]

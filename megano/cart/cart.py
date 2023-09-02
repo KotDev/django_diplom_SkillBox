@@ -26,9 +26,14 @@ class Cart(object):
         except Exception:
             price = product.price  # Если скидки нет возвращаем обычную цену товара
         if product_id not in self.cart:  # Проверяем есть ли этот продукт в корзине
-            self.cart[product_id] = {'count': count, 'price': str(price)}  # Добавляем новый продукт
+            self.cart[product_id] = {
+                "count": count,
+                "price": str(price),
+            }  # Добавляем новый продукт
         else:
-            self.cart[product_id]["count"] += count  # Прибавляем кол-во продукта к существующему продукту
+            self.cart[product_id][
+                "count"
+            ] += count  # Прибавляем кол-во продукта к существующему продукту
         self.save()  # Сохраняем сессию
 
     def save(self) -> None:
@@ -47,33 +52,38 @@ class Cart(object):
     def remove(self, product, count: int) -> None:
         product_id = str(product.id)
         if product_id in self.cart:  # Проверяем есть продукт в корзине
-            self.cart[product_id]['count'] -= count  # Удаляем указанное кол-во продуктов из сессии
+            self.cart[product_id][
+                "count"
+            ] -= count  # Удаляем указанное кол-во продуктов из сессии
             self.save()
 
     def __iter__(self):
         """Метод для получения всех продуктов из корзины"""
 
         prodict_ids = self.cart.keys()  # Получаем id продуктов
-        products = Product.objects.filter(id__in=prodict_ids)  # Получаем все объекты продуктов из корзины
+        products = Product.objects.filter(
+            id__in=prodict_ids
+        )  # Получаем все объекты продуктов из корзины
         cart = self.cart.copy()
         for product in products:
             cart[str(product.id)]["product"] = product
         for item in cart.values():
-            item['price'] = Decimal(item["price"])
+            item["price"] = Decimal(item["price"])
             item["total_price"] = item["price"] * item["count"]
             yield item
 
     def total_price(self) -> float:
         """Метод для получения полной суммы всех товаров в корзине"""
 
-        return sum(Decimal(item['price']) * item['count'] for item in
-                   self.cart.values())
+        return sum(
+            Decimal(item["price"]) * item["count"] for item in self.cart.values()
+        )
 
     def count_product(self, product_id: int) -> int:
         """Метод для получения кол-во продукта в корзине"""
 
         try:
-            return self.cart[str(product_id)]['count']
+            return self.cart[str(product_id)]["count"]
         except KeyError:
             return 0
 
@@ -87,9 +97,13 @@ class Cart(object):
 def create_product_list(cart: Cart) -> tuple:
     """Функция для получения списка продуктов и их кол-во"""
 
-    product_list = [product['product'] for product in cart]  # Получаем продукты из корзины
+    product_list = [
+        product["product"] for product in cart
+    ]  # Получаем продукты из корзины
     count = {
-        product['product'].id: cart.count_product(product_id=product['product'].id)  # Получаем кол-во продукта
+        product["product"].id: cart.count_product(
+            product_id=product["product"].id
+        )  # Получаем кол-во продукта
         for product in cart
     }
     return product_list, count

@@ -7,13 +7,17 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('product', '0013_alter_sale_product'),
+        ("product", "0013_alter_sale_product"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='sale',
-            name='product',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='sale_products', to='product.product'),
+            model_name="sale",
+            name="product",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="sale_products",
+                to="product.product",
+            ),
         ),
     ]

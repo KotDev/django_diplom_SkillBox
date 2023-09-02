@@ -6,26 +6,44 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('product', '0005_product_limited_edition'),
+        ("product", "0005_product_limited_edition"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Specifications',
+            name="Specifications",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(db_index=True, max_length=200, verbose_name='Название')),
-                ('value', models.CharField(db_index=True, max_length=200, verbose_name='Значение')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        db_index=True, max_length=200, verbose_name="Название"
+                    ),
+                ),
+                (
+                    "value",
+                    models.CharField(
+                        db_index=True, max_length=200, verbose_name="Значение"
+                    ),
+                ),
             ],
         ),
         migrations.RenameField(
-            model_name='review',
-            old_name='created',
-            new_name='date',
+            model_name="review",
+            old_name="created",
+            new_name="date",
         ),
         migrations.RenameField(
-            model_name='review',
-            old_name='grade',
-            new_name='rate',
+            model_name="review",
+            old_name="grade",
+            new_name="rate",
         ),
     ]

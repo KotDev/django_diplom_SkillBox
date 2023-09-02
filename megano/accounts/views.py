@@ -18,12 +18,15 @@ class SignInView(APIView):
         user_data = json.loads(serialized_data)
         username = user_data.get("username")  # Получаем username
         password = user_data.get("password")  # Получаем пароль
-        user = authenticate(request, username=username, password=password)  # Аунтифицируем пользователя
+        user = authenticate(
+            request, username=username, password=password
+        )  # Аунтифицируем пользователя
 
         if user is not None:
             login(request, user)  # Логиним пользователя
             return Response(
-                status=status.HTTP_201_CREATED)  # статусы такие берутся от сюда from rest_framework import status
+                status=status.HTTP_201_CREATED
+            )  # статусы такие берутся от сюда from rest_framework import status
 
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -34,13 +37,19 @@ class SignUpView(APIView):
     def post(self, request: HttpRequest) -> Response:
         serialized_data = list(request.POST.keys())[0]
         user_data = json.loads(serialized_data)
-        name = user_data.get('name')  # Получаем имя пользователя
-        username = user_data.get('username')  # Получаем username
-        password = user_data.get('password')  # Получаем пароль
+        name = user_data.get("name")  # Получаем имя пользователя
+        username = user_data.get("username")  # Получаем username
+        password = user_data.get("password")  # Получаем пароль
         try:
-            user = User.objects.create_user(username=username, password=password)  # Создаём пользователя
-            Profile.objects.create(user=user, fullName=name)  # Создаём профиль пользователя
-            user = authenticate(request, username=username, password=password)  # Аунтифицируем пользователя
+            user = User.objects.create_user(
+                username=username, password=password
+            )  # Создаём пользователя
+            Profile.objects.create(
+                user=user, fullName=name
+            )  # Создаём профиль пользователя
+            user = authenticate(
+                request, username=username, password=password
+            )  # Аунтифицируем пользователя
             login(request, user)  # Логиним пользователя
             return Response(status=status.HTTP_201_CREATED)
         except Exception as e:
@@ -58,17 +67,25 @@ class SignOutView(APIView):
 class ProfileView(APIView):
     """View дял профиля пользователя"""
 
-    permission_classes = [permissions.IsAuthenticated]  # Проверяем аунтифицирован ли пользователь
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]  # Проверяем аунтифицирован ли пользователь
 
     def get(self, request: HttpRequest) -> Response:
-        profile = Profile.objects.get(user=request.user)  # Получаем текущего пользователя
+        profile = Profile.objects.get(
+            user=request.user
+        )  # Получаем текущего пользователя
         serializer = ProfileSerializer(profile)
 
         return Response(serializer.data)
 
     def post(self, request: HttpRequest) -> Response:
-        profile = Profile.objects.get(user=request.user)  # Получаем текущего пользователя
-        serializer = ProfileSerializer(profile, data=request.data, partial=True)  # Сериализуем данные
+        profile = Profile.objects.get(
+            user=request.user
+        )  # Получаем текущего пользователя
+        serializer = ProfileSerializer(
+            profile, data=request.data, partial=True
+        )  # Сериализуем данные
         if serializer.is_valid():
             serializer.save()  # Сохраняем данные в db
             return Response(serializer.data)
@@ -79,8 +96,12 @@ class ChangePasswordView(APIView):
     """View для изменения пароля"""
 
     def post(self, request: HttpRequest) -> Response:
-        user = User.objects.get(username=request.user.username)  # Получаем текущего пользователя
-        serializer = ChangePasswordSerializer(instance=user, data=request.data)  # Сериализуем данные
+        user = User.objects.get(
+            username=request.user.username
+        )  # Получаем текущего пользователя
+        serializer = ChangePasswordSerializer(
+            instance=user, data=request.data
+        )  # Сериализуем данные
         if serializer.is_valid():
             serializer.save()  # Сохраняем данные в db
             return Response(status=status.HTTP_200_OK)
@@ -96,10 +117,14 @@ class ChangeAvatarView(APIView):
     def post(self, request: HttpRequest) -> Response:
         image = request.FILES["avatar"]  # Получаем данные аватара
         profile = Profile.objects.get(user=request.user)  # Получаем текущий профиль
-        if 'default-avatar.jpg' not in str(profile.avatar.src):  # Проверяем дефолд аватар
+        if "default-avatar.jpg" not in str(
+            profile.avatar.src
+        ):  # Проверяем дефолд аватар
             profile.avatar.src.delete(save=False)  # Удаляем текущий аватар пользователя
         profile.avatar.delete()
-        if str(image).lower().endswith(('jpg', 'png', 'jpeg')):  # Проверяем аватар на разрешение
+        if (
+            str(image).lower().endswith(("jpg", "png", "jpeg"))
+        ):  # Проверяем аватар на разрешение
             avatar = Avatar.objects.create(src=image)  # Создаём аватар
             profile.avatar = avatar  # Изменяем аватар
             profile.save()

@@ -7,13 +7,19 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0001_initial'),
+        ("accounts", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='profile',
-            name='avatar',
-            field=models.ForeignKey(default='media/user/default-avatar.jpg', on_delete=django.db.models.deletion.CASCADE, related_name='profile', to='accounts.avatar', verbose_name='Аватар'),
+            model_name="profile",
+            name="avatar",
+            field=models.ForeignKey(
+                default="media/user/default-avatar.jpg",
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="profile",
+                to="accounts.avatar",
+                verbose_name="Аватар",
+            ),
         ),
     ]

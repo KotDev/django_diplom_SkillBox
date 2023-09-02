@@ -6,17 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('product', '0010_alter_product_tags'),
+        ("product", "0010_alter_product_tags"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='product',
-            name='name',
+            model_name="product",
+            name="name",
         ),
         migrations.AlterField(
-            model_name='product',
-            name='title',
-            field=models.CharField(max_length=200, verbose_name='Название'),
+            model_name="product",
+            name="title",
+            field=models.CharField(max_length=200, verbose_name="Название"),
         ),
     ]

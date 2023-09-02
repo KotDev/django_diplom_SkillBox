@@ -15,26 +15,83 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Avatar',
+            name="Avatar",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('src', models.ImageField(default='app_users/avatars/default.png', upload_to='app_users/avatars/user_avatars/', verbose_name='Ссылка')),
-                ('alt', models.CharField(max_length=128, verbose_name='Описание')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "src",
+                    models.ImageField(
+                        default="app_users/avatars/default.png",
+                        upload_to="app_users/avatars/user_avatars/",
+                        verbose_name="Ссылка",
+                    ),
+                ),
+                ("alt", models.CharField(max_length=128, verbose_name="Описание")),
             ],
             options={
-                'verbose_name': 'Аватар',
-                'verbose_name_plural': 'Аватары',
+                "verbose_name": "Аватар",
+                "verbose_name_plural": "Аватары",
             },
         ),
         migrations.CreateModel(
-            name='Profile',
+            name="Profile",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('fullName', models.CharField(max_length=128, verbose_name='Полное имя')),
-                ('phone', models.PositiveIntegerField(blank=True, null=True, unique=True, verbose_name='Номер телефона')),
-                ('balance', models.DecimalField(decimal_places=2, default=0, max_digits=10, verbose_name='Баланс')),
-                ('avatar', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='profile', to='accounts.avatar', verbose_name='Аватар')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='profile', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "fullName",
+                    models.CharField(max_length=128, verbose_name="Полное имя"),
+                ),
+                (
+                    "phone",
+                    models.PositiveIntegerField(
+                        blank=True,
+                        null=True,
+                        unique=True,
+                        verbose_name="Номер телефона",
+                    ),
+                ),
+                (
+                    "balance",
+                    models.DecimalField(
+                        decimal_places=2,
+                        default=0,
+                        max_digits=10,
+                        verbose_name="Баланс",
+                    ),
+                ),
+                (
+                    "avatar",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="profile",
+                        to="accounts.avatar",
+                        verbose_name="Аватар",
+                    ),
+                ),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="profile",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

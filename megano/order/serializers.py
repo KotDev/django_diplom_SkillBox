@@ -12,18 +12,20 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id',
-                  'createdAt',
-                  'fullName',
-                  'email',
-                  'phone',
-                  'deliveryType',
-                  'paymentType',
-                  'totalCost',
-                  'status',
-                  'city',
-                  'address',
-                  'products',)
+        fields = (
+            "id",
+            "createdAt",
+            "fullName",
+            "email",
+            "phone",
+            "deliveryType",
+            "paymentType",
+            "totalCost",
+            "status",
+            "city",
+            "address",
+            "products",
+        )
 
     def get_phone(self, obj):
         return obj.profile.phone

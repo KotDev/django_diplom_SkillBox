@@ -9,33 +9,96 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('product', '0011_remove_product_name_alter_product_title'),
-        ('accounts', '0004_alter_avatar_src'),
+        ("product", "0011_remove_product_name_alter_product_title"),
+        ("accounts", "0004_alter_avatar_src"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Order',
+            name="Order",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('createdAt', models.DateField(auto_now_add=True, verbose_name='Дата создания')),
-                ('deliveryType', models.CharField(max_length=30, verbose_name='Способ доставки')),
-                ('paymentType', models.CharField(max_length=30, verbose_name='Способ оплаты')),
-                ('totalCost', models.DecimalField(db_index=True, decimal_places=2, default=0, max_digits=10, verbose_name='Сумма')),
-                ('status', models.CharField(max_length=50, verbose_name='Статус оплаты')),
-                ('city', models.CharField(max_length=200, verbose_name='Город')),
-                ('address', models.CharField(max_length=200, verbose_name='Адрес')),
-                ('products', models.ManyToManyField(related_name='orders', to='product.product', verbose_name='Продукты')),
-                ('profile', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='profile', to='accounts.profile', verbose_name='Профиль')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "createdAt",
+                    models.DateField(auto_now_add=True, verbose_name="Дата создания"),
+                ),
+                (
+                    "deliveryType",
+                    models.CharField(max_length=30, verbose_name="Способ доставки"),
+                ),
+                (
+                    "paymentType",
+                    models.CharField(max_length=30, verbose_name="Способ оплаты"),
+                ),
+                (
+                    "totalCost",
+                    models.DecimalField(
+                        db_index=True,
+                        decimal_places=2,
+                        default=0,
+                        max_digits=10,
+                        verbose_name="Сумма",
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(max_length=50, verbose_name="Статус оплаты"),
+                ),
+                ("city", models.CharField(max_length=200, verbose_name="Город")),
+                ("address", models.CharField(max_length=200, verbose_name="Адрес")),
+                (
+                    "products",
+                    models.ManyToManyField(
+                        related_name="orders",
+                        to="product.product",
+                        verbose_name="Продукты",
+                    ),
+                ),
+                (
+                    "profile",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="profile",
+                        to="accounts.profile",
+                        verbose_name="Профиль",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='CountProductinOrder',
+            name="CountProductinOrder",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('count', models.PositiveIntegerField()),
-                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='order.order')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='product.product')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("count", models.PositiveIntegerField()),
+                (
+                    "order",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="order.order"
+                    ),
+                ),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="product.product",
+                    ),
+                ),
             ],
         ),
     ]

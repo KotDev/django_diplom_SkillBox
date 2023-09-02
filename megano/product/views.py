@@ -22,9 +22,10 @@ class ReviewProductView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request: HttpRequest, id: int) -> Response:
-        serializer = ReviewsSerializer(data=request.data, context={'id': id})  # Сериализуем данные
+        serializer = ReviewsSerializer(
+            data=request.data, context={"id": id}
+        )  # Сериализуем данные
         if serializer.is_valid():
             serializer.save()  # Сохраняем данные в db
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
-

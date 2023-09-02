@@ -12,7 +12,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ('id', 'title', 'image', 'subcategories')
+        fields = ("id", "title", "image", "subcategories")
 
     def get_subcategories(self, obj):
         subcategories = obj.children.all()
@@ -31,8 +31,8 @@ class CategorySerializer(serializers.ModelSerializer):
 
     def get_image(self, obj):
         image_data = {
-            'src': obj.src.url,
-            'alt': obj.alt,
+            "src": obj.src.url,
+            "alt": obj.alt,
         }
         return image_data
 
@@ -40,14 +40,13 @@ class CategorySerializer(serializers.ModelSerializer):
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImage
-        fields = ('src', 'alt')
+        fields = ("src", "alt")
 
 
 class TagSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Tag
-        fields = ('id', 'name')
+        fields = ("id", "name")
 
 
 class CatalogSerializer(serializers.ModelSerializer):
@@ -58,21 +57,23 @@ class CatalogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ('id',
-                  'category',
-                  'price',
-                  'count',
-                  'date',
-                  'title',
-                  'description',
-                  'freeDelivery',
-                  'images',
-                  'tags',
-                  'reviews',
-                  'rating',)
+        fields = (
+            "id",
+            "category",
+            "price",
+            "count",
+            "date",
+            "title",
+            "description",
+            "freeDelivery",
+            "images",
+            "tags",
+            "reviews",
+            "rating",
+        )
 
     def get_reviews(self, obj):
-        reviews = obj.reviews.aggregate(count_text=Count('text'))['count_text']
+        reviews = obj.reviews.aggregate(count_text=Count("text"))["count_text"]
         return reviews
 
     def get_price(self, obj) -> float:
@@ -91,13 +92,7 @@ class SaleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Sale
-        fields = ('id',
-                  'price',
-                  'salePrice',
-                  'dateFrom',
-                  'dateTo',
-                  'title',
-                  'images')
+        fields = ("id", "price", "salePrice", "dateFrom", "dateTo", "title", "images")
 
     def get_price(self, obj):
         return obj.product.price

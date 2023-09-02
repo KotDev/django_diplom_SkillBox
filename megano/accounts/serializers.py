@@ -7,7 +7,6 @@ from accounts.models import Avatar, Profile
 
 
 class AvatarSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Avatar
         fields = ["src", "alt"]
@@ -27,14 +26,13 @@ class ChangePasswordSerializer(serializers.Serializer):
     newPassword = serializers.CharField(required=True)
 
     def validate(self, attrs):
-        cur_password = attrs.get('currentPassword')
+        cur_password = attrs.get("currentPassword")
         if self.instance.check_password(cur_password):
             return attrs
         else:
-            raise ValidationError('Incorrect password')
+            raise ValidationError("Incorrect password")
 
     def update(self, instance, validated_data):
-        instance.set_password(validated_data.get('newPassword'))
+        instance.set_password(validated_data.get("newPassword"))
         instance.save()
         return instance
-
