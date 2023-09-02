@@ -88,7 +88,7 @@ class OrderDetailView(APIView):
 
         order.save()  # Сохраняем данные в модели
         cart.clear()  # Очищаем корзину
-        return Response(request.data, status=status.HTTP_201_CREATED)
+        return Response({'orderId': order.id}, status=status.HTTP_201_CREATED)
 
 
 class PaymentView(APIView):
