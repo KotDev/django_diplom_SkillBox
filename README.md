@@ -1,6 +1,7 @@
 
-![Logo](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTpnBghzZlcw6VeyHLF5BJ8DvwpRYbxvcvJQ&s)
-
+ <div align="center">
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9-__tiF2dsxD0-ro5O6rnGx63DxxpukFmig&s)" width="500">
+ </div>
 
 # Интернет магазин Megano (Pet-project)
 
@@ -85,5 +86,5 @@ cd your-ptoject/diploma-frontend/swagger
 
 ## Автор
 
-- [@@OreoLand](https://github.com/OreoLand123)
+- [@KotDev](https://github.com/KotDev)
 
